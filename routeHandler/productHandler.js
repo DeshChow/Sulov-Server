@@ -21,6 +21,8 @@ router.post('/add', async (req, res) => {
 
     // console.log('54345',parseJSON(req.files));
 
+    var a;
+
     
     try {
 
