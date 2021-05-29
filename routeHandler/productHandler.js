@@ -19,11 +19,17 @@ router.post('/add', async (req, res) => {
 
     console.log(req.body);
 
+    // console.log('54345',parseJSON(req.files));
+
     
     try {
 
      
   const file = req.files.file;
+
+  console.log(file);
+
+  console.log('las ',req.files);
 
 
     await file.mv(`${__dirname.replace('routeHandler','')}images/${file.name}`);
