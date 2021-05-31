@@ -5,11 +5,11 @@ const productSchema = mongoose.Schema({
             type: String,
             required: true,
         },
-        pic: {
+        pic:[ {
             type : String,
-            required: true,
+          
     
-        },
+        }],
         price : 
         {
             type : Number,
@@ -33,6 +33,13 @@ const productSchema = mongoose.Schema({
             default : 0,
             
         },
+        description : {
+
+            type : String,
+            
+
+        },
+
         category: 
         {
             type : Object,

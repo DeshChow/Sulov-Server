@@ -17,28 +17,35 @@ const Category = new mongoose.model("Category", categorySchema);
 
 router.post('/add', async (req, res) => {
 
-    console.log(req.body);
-
-    // console.log('54345',parseJSON(req.files));
-
-    var a;
 
     
     try {
 
+    const allPic = [];
+
+
      
-  const file = req.files.file;
+  const Allfile = req.files.file;
 
-  console.log(file);
+  Allfile.forEach(async file=>
+    {
+  
+    allPic.push(file.name);
 
-  console.log('las ',req.files);
+  
+    })
 
 
+
+   Allfile.forEach(async file=>
+    {
     await file.mv(`${__dirname.replace('routeHandler','')}images/${file.name}`);
+  
+    })
+
+   
     
-    req.body.pic= file.name;
-
-
+    req.body.pic= allPic;
 
  
 
