@@ -4,6 +4,12 @@ const producHandler = require('./routeHandler/productHandler');
 
 const categoryHandler = require('./routeHandler/categoryHandler');
 
+const adminInitHandler = require('./routeHandler/adminInitHandler');
+
+const userHandler = require('./routeHandler/userHandler');
+
+const orderHistoryHandler = require('./routeHandler/orderHistoryHandler');
+
 
 const route={
 
@@ -11,11 +17,11 @@ const route={
 
      category : categoryHandler,
 
+     adminInit : adminInitHandler,
 
+     user : userHandler,
 
-
-
-
+     orderHistory : orderHistoryHandler
 
 
 }

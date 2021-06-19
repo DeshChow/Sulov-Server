@@ -36,6 +36,13 @@ app.use('/product',route.product);
 
 app.use('/category',route.category);
 
+app.use('/admin',route.adminInit);
+
+
+app.use('/admin/user',route.user);
+
+// app.use('/order',route.orderHistory);
+
 
 //app.use(express.json());
 

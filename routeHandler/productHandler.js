@@ -17,6 +17,9 @@ const Category = new mongoose.model("Category", categorySchema);
 
 router.post('/add', async (req, res) => {
 
+   
+
+
 
     
     try {
@@ -24,8 +27,20 @@ router.post('/add', async (req, res) => {
     const allPic = [];
 
 
-     
-  const Allfile = req.files.file;
+    let Allfile=[];
+
+    
+    if(!Array.isArray(req.files.file))
+        {
+            Allfile=[req.files.file];
+
+        
+
+        }
+    else  Allfile = req.files.file;
+
+
+
 
   Allfile.forEach(async file=>
     {
