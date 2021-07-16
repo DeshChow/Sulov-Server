@@ -34,128 +34,152 @@ router.get('/',async(req,res)=>
 
 })
  
-// router.post('/',(req,res)=>
-// {
-//   res.status(200).json({
+router.post('/',(req,res)=>
+{
+  res.status(200).json({
  
-//     message: "Successfully Resgistered"
+    message: "Successfully Resgistered"
  
-//   });
-// })
+  });
+})
  
-// router.post("/signupin", async (req, res) => {
- 
- 
-//   try {
- 
-//     const userFind = await User.findOne({
-//         email : req.body.email
-//     })
- 
-//    if(userFind==null)
-//    {
- 
-//     req.body.status = 'active'
+router.post("/signupin", async (req, res) => {
+
+    console.log(' now signupin')
  
  
-//     const newUser = new User(req.body);
+  try {
+ 
+    const userFind = await User.findOne({
+        email : req.body.email
+    })
+
+    console.log('object test emailVerified',req.body.emailVerified)
+
+ 
+ 
+   if(userFind==null)
+   {
+ 
+    req.body.status = 'active'
+ 
+ 
+    const newUser = new User(req.body);
+
+   
+     console.log(newUser)
+ 
+ 
+     newUser.token = jwt.sign(
+      {
+        userEmail: newUser.email,
+        userId: newUser._id,
+      },
+     process.env.JWT_SECRET
+    );
+
+   
+ 
+    const user = await newUser.save();
+
+    if(req.body.emailVerified==false){
+      return res.status(200).json({
+       
+    
+         registered: true,
+    
+         message: "Successfully Resgistered"
+    
+       });
+
+    }
+ 
+ 
+   else  return res.status(200).json({
+      data : user,
+ 
+      registered: true,
+ 
+      message: "Successfully Resgistered"
+ 
+    });
+  } 
+ 
+ 
+else {
+
+  
+ 
+  res.send({
+    data: userFind,
+ 
+    success: true,
+  });
  
  
  
-//      newUser.token = jwt.sign(
-//       {
-//         userEmail: newUser.email,
-//         userId: newUser._id,
-//       },
-//       process.env.JWT_SECRET
-//     );
+}
+  }
  
-//     const user = await newUser.save();
- 
- 
-//     return res.status(200).json({
-//       data : user,
- 
-//       registered: true,
- 
-//       message: "Successfully Resgistered"
- 
-//     });
-//   } 
- 
- 
-// else {
- 
-//   res.send({
-//     data: userFind,
- 
-//     success: true,
-//   });
+  catch (err) {
+    res.status(500).send('This email have no account');
+  }
  
  
  
-// }
-//   }
- 
-//   catch (err) {
-//     res.status(500).send('error');
-//   }
+}
  
  
+);
  
-// }
+router.get("/login/:id", async (req, res) => {
+  console.log(process.env.JWT_SECRET);
+  try {
+    const user = await User.findOne({
+      _id: req.params.id,
+      email: req.body.email,
+    }).select({
+      password: 0,
+      status: 0,
+    });
  
+    res.send({
+      data: user,
  
-// );
+      success: true,
+    });
+  } catch (err) {
+    res.status(500).send("there was a server site error");
+  }
+});
  
-// router.get("/login/:id", async (req, res) => {
-//   console.log(process.env.JWT_SECRET);
-//   try {
-//     const user = await User.findOne({
-//       _id: req.params.id,
-//       email: req.body.email,
-//     }).select({
-//       password: 0,
-//       status: 0,
-//     });
+router.get("/", async (req, res) => {
+  try {
+    const alluser = await User.find({}).populate('orderHistory');
  
-//     res.send({
-//       data: user,
- 
-//       success: true,
-//     });
-//   } catch (err) {
-//     res.status(500).send("there was a server site error");
-//   }
-// });
- 
-// router.get("/", async (req, res) => {
-//   try {
-//     const alluser = await User.find({}).populate('orderHistory');
- 
-//     return res.status(200).json({
-//       data: alluser,
-//     });
-//   } catch (err) {
-//     res.status(500).send("there was a server site error");
-//   }
-// });
+    return res.status(200).json({
+      data: alluser,
+    });
+  } catch (err) {
+    res.status(500).send("there was a server site error");
+  }
+});
  
  
-// router.put("/:id",async(req,res)=>
-// {
-//     try{
-//              console.log(req.files)
-//       const file = req.files.file;
+router.put("/:id",async(req,res)=>
+{
+    try{
+             console.log(req.files)
+      const file = req.files.file;
  
-//       res.send(file);
+      res.send(file);
  
  
-//     }
-//     catch(err)
-//     {
-//         res.status(500).send(err);
-//     }
-// })
+    }
+    catch(err)
+    {
+        res.status(500).send(err);
+    }
+})
  
 module.exports = router;

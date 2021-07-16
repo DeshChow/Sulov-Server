@@ -12,6 +12,10 @@ const password = "iKwGWMdRwIxz2KhU"
 
 var cors = require('cors');
 
+const dotenv = require('dotenv')
+
+dotenv.config();
+
 
 const url = `mongodb+srv://sulovEcommerceAdmin:${password}@cluster0.ch6qp.mongodb.net/SulovDb?retryWrites=true&w=majority`;
 
@@ -39,7 +43,7 @@ app.use('/category',route.category);
 app.use('/admin',route.adminInit);
 
 
-app.use('/admin/user',route.user);
+app.use('/user',route.user);
 
 // app.use('/order',route.orderHistory);
 
