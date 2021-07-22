@@ -259,21 +259,25 @@ router.put('/:id',(req,res)=>
 
 router.delete('/:id',(req,res)=>
 {
+
+    console.log('hamaisiiiiii',req.params.id)
     Product.findByIdAndRemove(req.params.id,(err)=>
     {
+
+        console.log(err)
         if(err)
         {
-         return res.status(500).json({
+         return res.status(200).json({
             error: "There was a server side error!",
-            deleteCount : false,
+            deleted : false,
           });
         }
 
         else {
 
            return res.status(200).json({
-                message: "Product was updated successfully!",
-                updateCount : true
+                message: "Product was deleted successfully!",
+                deleted : true
             });
 
         }

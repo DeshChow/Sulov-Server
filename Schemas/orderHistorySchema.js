@@ -18,6 +18,13 @@ const orderHistoryShema = mongoose.Schema({
         type : String,
         enum : ["delivered","pending"]
     },
+    stripePaymentDetails : {
+
+        type : Object,
+        required : true
+        
+
+    },
 
     date : {
 

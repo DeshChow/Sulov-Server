@@ -2,8 +2,6 @@ const express = require('express');
 
 const mongoose = require('mongoose');
 
-const bodyParser = require('body-parser');
-
 const fileUpload = require('express-fileupload');
 
 const route = require('./route');
@@ -17,6 +15,9 @@ const dotenv = require('dotenv')
 dotenv.config();
 
 
+
+const bodyParser = require("body-parser")
+
 const url = `mongodb+srv://sulovEcommerceAdmin:${password}@cluster0.ch6qp.mongodb.net/SulovDb?retryWrites=true&w=majority`;
 
 mongoose.connect(url,{ useUnifiedTopology: true, useNewUrlParser: true})
@@ -27,6 +28,8 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(cors()) 
+
+app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use(fileUpload())
 
@@ -45,7 +48,7 @@ app.use('/admin',route.adminInit);
 
 app.use('/user',route.user);
 
-// app.use('/order',route.orderHistory);
+app.use('/order',route.orderHistory);
 
 
 //app.use(express.json());
