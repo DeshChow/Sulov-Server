@@ -48,6 +48,8 @@ app.use('/admin',route.adminInit);
 
 app.use('/user',route.user);
 
+app.use('/user/contact',route.contact);
+
 app.use('/order',route.orderHistory);
 
 

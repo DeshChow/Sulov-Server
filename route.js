@@ -10,6 +10,8 @@ const userHandler = require('./routeHandler/userHandler');
 
 const orderHistoryHandler = require('./routeHandler/orderHistoryHandler');
 
+const contactHandler = require('./routeHandler/contactHandler')
+
 
 const route={
 
@@ -21,7 +23,9 @@ const route={
 
      user : userHandler,
 
-     orderHistory : orderHistoryHandler
+     orderHistory : orderHistoryHandler,
+
+     contact : contactHandler
 
 
 }
