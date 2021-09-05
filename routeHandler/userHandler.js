@@ -1,32 +1,45 @@
-const exporess = require("express");
+const express = require("express");
  
-const router = exporess.Router();
+const router = express.Router();
  
 const jwt = require("jsonwebtoken");
  
 const mongoose = require("mongoose");
  
+// const userSchema = require("../Schemas/userSchema");
+ 
+// const User = new mongoose.model("User", userSchema);
+ 
+const bcrypt = require("bcrypt");
 const userSchema = require("../Schemas/userSchema");
  
 const User = new mongoose.model("User", userSchema);
- 
-const bcrypt = require("bcrypt");
 
 
-
-router.get('/',async(req,res)=>
+router.get('/info',async(req,res)=>
 {
+
+  
+
    try{
+
 
     const customers =await User.find({});
 
-    res.status(200).json({
-        customers
+    return res.status(200).json({
+        customers : customers.map(custom=>{
+
+             const {name,email,status,Address : address,registration_date,phone,_id} = custom;
+          return {
+          name,email,status,address,registration_date,phone,_id
+          
+          }
+        })
    
       });
    }
    catch(err){
-    res.status(500).send(err);
+    return res.status(500).send(err);
 
 
    }
@@ -45,7 +58,7 @@ router.post('/',(req,res)=>
  
 router.post("/signupin", async (req, res) => {
 
-    console.log(' now signupin')
+    // console.log(' now signupin')
  
  
   try {
@@ -54,7 +67,7 @@ router.post("/signupin", async (req, res) => {
         email : req.body.email
     })
 
-    console.log('object test emailVerified',req.body.emailVerified)
+    // console.log('object test emailVerified',req.body.emailVerified)
 
  
  
@@ -67,7 +80,7 @@ router.post("/signupin", async (req, res) => {
     const newUser = new User(req.body);
 
    
-     console.log(newUser)
+    //  console.log(newUser)
  
  
      newUser.token = jwt.sign(
@@ -133,7 +146,7 @@ else {
 );
  
 router.get("/login/:id", async (req, res) => {
-  console.log(process.env.JWT_SECRET);
+  // console.log(process.env.JWT_SECRET);
   try {
     const user = await User.findOne({
       _id: req.params.id,
@@ -169,7 +182,7 @@ router.get("/", async (req, res) => {
 router.put("/:id",async(req,res)=>
 {
     try{
-             console.log(req.files)
+            //  console.log(req.files)
       const file = req.files.file;
  
       res.send(file);
