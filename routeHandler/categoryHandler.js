@@ -15,6 +15,8 @@ const Product = new mongoose.model("Product", productSchema);
 
 router.post('/add',async(req,res)=>
 {
+
+  // console.log('hamaisiiiiiiiiiiiiiiiiiiiiii')
  
   try{
 
@@ -22,7 +24,7 @@ router.post('/add',async(req,res)=>
 
   console.log(typeof(file));
 
-  console.log('dfsdf')
+  console.log('dfsdf',req.body)
 
 
   await file.mv(`${__dirname.replace('routeHandler','')}images/${file.name}`);
@@ -197,14 +199,20 @@ router.get('/:id',(req,res)=>
 
 router.put("/:id", (req, res) => {
 
+
+  let updateData = {};
+
+  if(req.body.alternativeTitle!==undefined)
+  {
+    updateData.alternativeTitle = req.body.alternativeTitle
+  }
+
     
     Category.findByIdAndUpdate(
       { 
           _id: req.params.id },
       {
-        $set: {
-            pic : req.body.pic
-        },
+        $set: updateData,
       },
       {
         new: true,

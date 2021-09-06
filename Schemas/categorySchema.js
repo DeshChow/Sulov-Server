@@ -5,6 +5,13 @@ const categorySchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    alternativeTitle : {
+
+        type: String,
+        required: true,
+
+
+    },
     pic: {
         type : String,
         required: true,

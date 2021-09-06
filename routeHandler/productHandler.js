@@ -179,6 +179,7 @@ router.get('/:id',(req,res)=>
 
 router.put('/:id',(req,res)=>
 {
+    console.log('hamais re ',req.body)
     
     const updateData = { };
 
