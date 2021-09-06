@@ -65,7 +65,7 @@ router.post("/signupin", async (req, res) => {
  
     const userFind = await User.findOne({
         email : req.body.email
-    })
+    }).populate('orderHistory');
 
     // console.log('object test emailVerified',req.body.emailVerified)
 
