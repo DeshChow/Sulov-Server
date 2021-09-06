@@ -94,4 +94,48 @@ router.post("/", async (req, res) => {
   
 });
 
+
+router.get('/',async (req,res)=>
+{
+  
+
+    try {
+      // const data = await Category.find({}).populate("products");
+  
+      const allOrderHistory = await OrderHistory.find({});
+  
+    
+
+  
+     
+  
+  
+  
+  
+  
+  
+      res.status(200).json({
+        dataRead: true,
+  
+        allOrderHistory,
+        
+      //  randomProduct : randomProduct,
+  
+      //   newlyAddedProduct : newlyAddedProduct,
+  
+  
+  
+        message: "Successfully Read",
+      });
+    } catch (err) {
+      res.status(500).json({
+        dataRead: false,
+  
+        msg : err,
+  
+        error: "There was a server site error",
+      });
+    }
+})
+
 module.exports = router;
