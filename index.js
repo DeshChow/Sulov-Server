@@ -14,8 +14,6 @@ const dotenv = require('dotenv')
 
 dotenv.config();
 
-
-
 const bodyParser = require("body-parser")
 
 const url = `mongodb+srv://sulovEcommerceAdmin:${password}@cluster0.ch6qp.mongodb.net/SulovDb?retryWrites=true&w=majority`;
